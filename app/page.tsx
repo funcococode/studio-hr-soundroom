@@ -19,7 +19,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex items-center gap-3">
               <Link href="/pricing" className="px-5 py-3 rounded-full bg-ink text-white text-sm hover:opacity-90">View Pricing</Link>
-              <Link href="/work" className="px-5 py-3 rounded-full border border-black/10 text-sm hover:bg-black/5">See Our Work</Link>
+              <Link href="#" className="bg-gray-200 text-gray-400 px-5 py-3 rounded-full border border-black/10 text-sm cursor-not-allowed">See Our Work (coming soon)</Link>
             </div>
           </div>
           {/* <div>
