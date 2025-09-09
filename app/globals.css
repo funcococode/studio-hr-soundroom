@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fafafa;
+  --fg: #0f172a;
+  --muted: #667085;
+  --accent: #6366f1;
+  --radius: 16px;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+.gradient-text {
+  background: linear-gradient(90deg, #6366f1, #22c55e, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.border-soft { @apply border border-black/5; }
+
+/* Reduce layout shift during transitions */
+img, video { max-width: 100%; height: auto; }
