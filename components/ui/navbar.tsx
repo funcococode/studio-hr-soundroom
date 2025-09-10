@@ -144,6 +144,7 @@ export default function Navbar() {
                 ))}
               </ul>
             </nav>
+            
 
             {/* Actions */}
             <div className="px-4 pb-6 pt-1 border-t border-black/10">
