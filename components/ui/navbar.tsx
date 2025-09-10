@@ -21,12 +21,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Close on route change
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Lock scroll when menu is open + ESC to close
   useEffect(() => {
     if (open) {
       const prev = document.body.style.overflow;
@@ -42,8 +40,8 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-white/75 backdrop-blur border-b border-black/5">
-      <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
-        {/* Brand */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2.5 md:py-3 flex items-center justify-between"
+           style={{ paddingTop: "max(0.625rem, env(safe-area-inset-top))" }}>
         <Link href="/" className="flex items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-emerald-500 text-white shadow-soft">
             <TbMusic />
@@ -51,7 +49,6 @@ export default function Navbar() {
           <span className="font-semibold">Studio HR</span>
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
           {nav.map((n) => (
             <Link
@@ -61,13 +58,13 @@ export default function Navbar() {
                 "px-3 py-2 rounded-full text-sm hover:bg-black/5 transition",
                 pathname === n.href && "bg-black/5"
               )}
+              aria-current={pathname === n.href ? "page" : undefined}
             >
               {n.label}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop contact */}
         <div className="hidden md:flex items-center gap-4 text-sm">
           <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-2 hover:opacity-80">
             <TbPhone /> {PHONE_NUMBER}
@@ -77,7 +74,6 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile: hamburger */}
         <button
           type="button"
           className="md:hidden inline-flex items-center justify-center rounded-full p-2 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/20"
@@ -90,23 +86,20 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu (sheet) */}
       {open && (
         <div className="md:hidden">
-          {/* Scrim */}
           <div
             className="fixed inset-0 z-40 bg-black/40"
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
-          {/* Panel */}
           <div
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
-            className="fixed inset-x-0 top-0 z-50 origin-top bg-white/95 backdrop-blur shadow-lg rounded-b-2xl"
+            className="fixed inset-x-0 top-0 z-50 origin-top bg-white/95 backdrop-blur shadow-lg rounded-b-2xl
+                       max-h-[100dvh] overflow-y-auto pb-[env(safe-area-inset-bottom)]"
           >
-            {/* Top bar */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-black/10">
               <Link href="/" className="flex items-center gap-2">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand-500 to-emerald-500 text-white shadow-soft">
@@ -124,8 +117,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Links */}
-            <nav className="px-4 py-3">
+            <nav className="px-4 sm:px-6 py-3">
               <ul className="space-y-1">
                 {nav.map((n) => (
                   <li key={n.href}>
@@ -137,6 +129,7 @@ export default function Navbar() {
                           ? "bg-black/5 font-medium"
                           : "hover:bg-black/5"
                       )}
+                      aria-current={pathname === n.href ? "page" : undefined}
                     >
                       {n.label}
                     </Link>
@@ -144,9 +137,7 @@ export default function Navbar() {
                 ))}
               </ul>
             </nav>
-            
 
-            {/* Actions */}
             <div className="px-4 pb-6 pt-1 border-t border-black/10">
               <div className="grid grid-cols-2 gap-3">
                 <a
@@ -164,7 +155,6 @@ export default function Navbar() {
                   Email
                 </a>
               </div>
-              {/* Optional helpers */}
               <div className="mt-3 px-1 text-xs text-black/50">
                 {PHONE_NUMBER} • {EMAIL}
               </div>
