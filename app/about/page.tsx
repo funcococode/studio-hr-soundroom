@@ -1,187 +1,143 @@
 "use client";
 
+import Link from "next/link";
 import Section from "@/components/ui/section";
-import Image from "next/image";
 import { motion } from "@/lib/motion";
-import {
-  TbSparkles,
-  TbHeart,
-  TbWaveSine,
-  TbShield,
-  TbAperture,
-  TbArrowRight,
-  TbHandLoveYou,
-} from "react-icons/tb";
+import { TbArrowUpRight, TbDownload } from "react-icons/tb";
+import { COMPANY_PROFILE_PDF, LOCATION } from "@/constants";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 
-const stagger = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-
-const PRINCIPLES = [
-  { icon: TbHeart, title: "Artist-first", desc: "We protect your voice and serve the song." },
-  { icon: TbWaveSine, title: "Taste + Tech", desc: "Warmth of analog, precision of digital." },
-  { icon: TbHandLoveYou, title: "Handcrafted", desc: "No templates. Every record gets a custom path." },
-  { icon: TbShield, title: "Trust", desc: "Clean communication, clear expectations, no ego." },
-  { icon: TbAperture, title: "Clarity", desc: "Decisions that translate on every system." },
-  { icon: TbSparkles, title: "Joy", desc: "Sessions should feel inspiring, not clinical." },
+const STATS = [
+  { k: "9+", v: "Production disciplines under one roof" },
+  { k: "End-to-end", v: "Script to final delivery" },
+  { k: "QC", v: "Dedicated quality-control stage" },
+  { k: "Scalable", v: "Boutique to high-volume slates" },
 ];
 
-const TIMELINE = [
-  { n: "01", t: "Beginnings", d: "Late nights with a laptop, a second-hand mic, and a head full of hooks." },
-  { n: "02", t: "The Room", d: "Tuning a compact space into a truthful listening environment." },
-  { n: "03", t: "The Chain", d: "Curating gear that adds character without getting in the way." },
-  { n: "04", t: "The Work", d: "Singles, EPs, podcasts, demos—each treated like a headline release." },
-  { n: "05", t: "Today", d: "Studio HR helps artists finish with confidence and release without doubt." },
+const TEAM = [
+  { name: "Harshit", role: "Founder & Lead Audio Engineer", initials: "HR", note: "Sets the house sound and owns the final mix." },
+  { name: "Production Team", role: "Editors & Dialogue Specialists", initials: "ED", note: "Assembly, cleanup, and continuity across episodes." },
+  { name: "Sound Design", role: "Designers & Foley Artists", initials: "SD", note: "Worlds built from ambience, effects, and texture." },
+  { name: "Music", role: "Composers & Producers", initials: "MU", note: "Original scores, themes, and beds." },
+  { name: "Quality Control", role: "QC & Delivery", initials: "QC", note: "Spec compliance and spotless final files." },
+  { name: "Project Management", role: "Producers & Coordination", initials: "PM", note: "Timelines, communication, and multi-project flow." },
+];
+
+const VALUES = [
+  { title: "Storytelling first", desc: "Every technical decision serves the narrative and the listener." },
+  { title: "Consistent quality", desc: "A documented standard that holds across every file we ship." },
+  { title: "Dependable at scale", desc: "Pipelines and people sized for ongoing, high-volume work." },
+  { title: "Clear partnership", desc: "Honest timelines, clean communication, no surprises." },
 ];
 
 export default function About() {
   return (
     <main>
-      {/* PERSONAL HERO */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 left-1/2 h-72 w-[120vw] -translate-x-1/2 rounded-full bg-gradient-to-r from-brand-500/25 via-emerald-400/20 to-amber-400/25 blur-3xl" />
+      {/* HERO */}
+      <section className="relative">
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -left-40 -top-10 h-[30rem] w-[30rem] rounded-full bg-rust-200/40 blur-[120px]" />
         </div>
-
-        <div className="mx-auto max-w-7xl px-6 pt-20 pb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] items-center"
-          >
-            <div className="space-y-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-black/60">Philosophy</p>
-              <h1 className="text-5xl md:text-7xl font-semibold leading-[1.05]">
-                Studio HR is a{" "}
-                <span className="bg-gradient-to-br from-brand-500 via-emerald-500 to-amber-500 bg-clip-text text-transparent">
-                  craft-first
-                </span>{" "}
-                music house—built on trust, taste, and the joy of finishing.
-              </h1>
-              <p className="max-w-3xl text-lg md:text-xl text-black/70">
-                I started this studio to help artists feel <em>heard</em>. We pair thoughtful
-                pre-production with a hybrid analog/digital chain so your songs feel alive on earbuds,
-                cars, club rigs—everywhere.
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-white transition hover:opacity-90"
-                >
-                  Say hello <TbArrowRight />
-                </a>
-                <span className="text-sm text-black/60">Typically booking 2–4 weeks out.</span>
-              </div>
-              <div className="pt-2 text-sm text-black/60">
-                — Founder, Studio HR
-              </div>
-            </div>
-
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-black/5 bg-white shadow-soft"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1600&auto=format&fit=crop"
-                alt="In the studio"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
+        <div className="mx-auto max-w-7xl px-6 pt-16 pb-12 md:pt-24">
+          <motion.div initial="hidden" animate="show" variants={stagger}>
+            <motion.span variants={fadeUp} className="kicker block">About the studio</motion.span>
+            <motion.h1 variants={fadeUp} className="display mt-6 text-5xl md:text-8xl text-ink leading-[0.95]">
+              A full-service
+              <br />
+              <span className="text-rust-500">audio production house.</span>
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mt-8 max-w-3xl text-lg md:text-xl text-muted leading-relaxed">
+              Studio HR Soundroom is a full-service audio production company based in {LOCATION},
+              specializing in end-to-end audio for storytelling platforms, production houses,
+              podcast networks, audiobook publishers, brands, and independent creators. We bring
+              creative direction, sound engineering, design, music, mixing, mastering, and
+              quality control together under one roof — to create immersive, scalable audio
+              experiences.
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
+              <a href={COMPANY_PROFILE_PDF} download className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-4 text-paper transition hover:bg-rust-500">
+                <TbDownload /> Download Company Profile
+              </a>
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-7 py-4 text-ink transition hover:bg-ink hover:text-paper">
+                Work with us <TbArrowUpRight />
+              </Link>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* PRINCIPLES */}
-      <Section title="What we believe" kicker="Values">
+      {/* STATS */}
+      <section className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+          {STATS.map((s) => (
+            <div key={s.v} className="bg-paper p-8">
+              <div className="font-display text-4xl text-rust-500">{s.k}</div>
+              <div className="mt-3 text-sm text-muted leading-relaxed">{s.v}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* TEAM */}
+      <Section title="The team behind the sound" kicker="People">
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {PRINCIPLES.map((p) => (
+          {TEAM.map((m) => (
             <motion.div
-              key={p.title}
+              key={m.name}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-3xl border border-black/5 bg-white p-6 shadow-soft"
+              className="group rounded-3xl border border-ink/10 bg-paper2/40 p-7 transition-all hover:border-ink/20 hover:shadow-soft"
             >
-              <div className="mb-3 flex items-center gap-3">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-black/[0.04] transition-transform duration-300 group-hover:scale-110">
-                  <p.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-2xl md:text-3xl font-semibold">{p.title}</h3>
+              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink font-display text-lg text-paper transition-colors group-hover:bg-rust-500">
+                {m.initials}
               </div>
-              <p className="text-black/70">{p.desc}</p>
-
-              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div className="absolute -inset-8 rounded-[28px] bg-gradient-to-br from-brand-500/10 via-emerald-500/10 to-amber-500/10 blur-2xl" />
-              </div>
+              <h3 className="mt-6 font-display text-2xl text-ink">{m.name}</h3>
+              <div className="mt-1 text-sm uppercase tracking-[0.14em] text-rust-500">{m.role}</div>
+              <p className="mt-3 text-muted leading-relaxed">{m.note}</p>
             </motion.div>
           ))}
         </motion.div>
+        <p className="mt-8 max-w-2xl text-muted">
+          Working as one pipeline — not a single freelancer — gives your projects the
+          consistency, redundancy, and capacity that serious production requires.
+        </p>
       </Section>
 
-      {/* STORY / TIMELINE */}
-      <Section title="The story" kicker="From laptop to listening room">
-        <motion.ol
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="relative grid gap-6 md:grid-cols-2"
-        >
-          <div className="pointer-events-none absolute left-1/2 top-6 hidden h-[calc(100%-3rem)] w-px -translate-x-1/2 bg-black/10 md:block" />
-          {TIMELINE.map((s) => (
-            <motion.li
-              key={s.n}
-              variants={fadeUp}
-              className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-6 shadow-soft"
-            >
-              <div className="mb-3 flex items-center gap-3">
-                <span className="text-3xl md:text-4xl font-semibold tabular-nums text-black/80">{s.n}</span>
-                <h4 className="text-2xl md:text-3xl font-semibold">{s.t}</h4>
-              </div>
-              <p className="text-base md:text-lg text-black/70">{s.d}</p>
-            </motion.li>
+      {/* VALUES */}
+      <Section title="What we believe" kicker="Values">
+        <div className="divide-y divide-ink/10 border-y border-ink/10">
+          {VALUES.map((v, i) => (
+            <div key={v.title} className="group grid items-baseline gap-4 py-8 md:grid-cols-[6rem_1fr_1.2fr]">
+              <span className="font-display text-3xl text-rust-500">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="font-display text-2xl md:text-3xl text-ink transition-transform duration-300 group-hover:translate-x-2">{v.title}</h3>
+              <p className="text-muted leading-relaxed">{v.desc}</p>
+            </div>
           ))}
-        </motion.ol>
+        </div>
       </Section>
 
-      {/* PERSONAL NOTE / CTA */}
-      <section className="mx-auto max-w-7xl px-6 pb-20">
-        <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-8 md:p-12 shadow-soft">
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute -inset-10 rounded-[36px] bg-gradient-to-br from-brand-500/15 via-emerald-500/15 to-amber-500/15 blur-3xl" />
-          </div>
-          <motion.blockquote
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="text-xl md:text-2xl leading-relaxed text-black/80"
-          >
-            “Great records come from great conversations. If you have a melody on a voice note
-            or a fully arranged session, I’ll meet you where you are—and help you get it home.”
-            <footer className="mt-4 text-sm text-black/60">— Founder, Studio HR</footer>
-          </motion.blockquote>
-
-          <div className="mt-8">
-            <a href="/contact" className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-white transition hover:opacity-90">
-              Start a conversation <TbArrowRight />
-            </a>
+      {/* CTA */}
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="rounded-3xl bg-ink p-10 text-paper md:p-16">
+          <blockquote className="display max-w-4xl text-3xl md:text-5xl leading-[1.05]">
+            "We built Studio HR Soundroom so creators and platforms could hand over a script —
+            and get back a finished, quality-controlled production."
+          </blockquote>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-rust-500 px-7 py-4 text-paper transition hover:bg-paper hover:text-ink">
+              Start a conversation <TbArrowUpRight />
+            </Link>
+            <span className="text-sm text-paper/50">{LOCATION}</span>
           </div>
         </div>
       </section>
