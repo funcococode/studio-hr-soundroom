@@ -14,7 +14,6 @@ const nav = [
   { href: "/services", label: "Services" },
   { href: "/audio-story-production", label: "Audio Story" },
   { href: "/work", label: "Work" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ];
 

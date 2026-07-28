@@ -7,7 +7,6 @@ const explore = [
   { href: "/services", label: "Services" },
   { href: "/audio-story-production", label: "Audio Story Production" },
   { href: "/work", label: "Work" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -66,10 +65,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 overflow-hidden border-t border-paper/10 pt-8">
-          <div className="font-display text-[14vw] leading-none tracking-tightest text-paper/[0.07] select-none">
-            SOUNDROOM
-          </div>
+        {/* Full-bleed wordmark — SVG stretches to exactly fill the container width */}
+        <div className="mt-16 border-t border-paper/10 pt-6">
+          <h1 className="text-9xl font-black text-paper/5 text-center py-10">SOUNDROOM</h1>
         </div>
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-paper/40">
