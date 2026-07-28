@@ -18,7 +18,7 @@ import {
   TbReportAnalytics,
 } from "react-icons/tb";
 import Section from "@/components/ui/section";
-import SampleCard, { Sample } from "@/components/ui/sample-card";
+import AudioSample, { AudioItem } from "@/components/ui/audio-sample";
 import { COMPANY_PROFILE_PDF } from "@/constants";
 
 const fadeUp = {
@@ -73,11 +73,27 @@ const WHY = [
   { n: "05", title: "Dedicated support", desc: "A responsive partner across the life of your production." },
 ];
 
-const SAMPLES: Sample[] = [
-  { category: "Audio Story", title: "Episodic Drama", meta: "Long-form narrative · multi-voice" },
-  { category: "Audiobook", title: "Fiction Narration", meta: "Full-length · chapter delivery" },
-  { category: "Podcast", title: "Interview Series", meta: "Weekly · edited & mastered" },
-  { category: "Music Production", title: "Original Score", meta: "Themes · stems · mix" },
+const demo = (file: string) => `/demos/${encodeURIComponent(file)}`;
+
+const SAMPLES: AudioItem[] = [
+  {
+    category: "Audio Story",
+    title: "Don't Look Behind You",
+    genre: "Suspense / Psychological Thriller",
+    src: demo("DONT LOOK BEHIND YOU - Suspense _ Psychological Thriller.wav"),
+  },
+  {
+    category: "Audio Story",
+    title: "The Last King of Dragons",
+    genre: "Fantasy Epic",
+    src: demo("THE LAST KING OF DRAGONS - Fantasy Epic.wav"),
+  },
+  {
+    category: "Audio Story",
+    title: "When the Stars Chose Her",
+    genre: "Romantasy",
+    src: demo("WHEN THE STARS CHOSE HER - Romantasy.wav"),
+  },
 ];
 
 export default function Home() {
@@ -251,9 +267,9 @@ export default function Home() {
       </Section>
 
       <Section title="Selected work" kicker="Portfolio samples" index="05 / 06">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {SAMPLES.map((s) => (
-            <SampleCard key={s.title} sample={s} />
+            <AudioSample key={s.title} item={s} />
           ))}
         </div>
         <div className="mt-10">
