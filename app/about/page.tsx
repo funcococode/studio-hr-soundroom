@@ -20,7 +20,7 @@ const STATS = [
 ];
 
 const TEAM = [
-  { name: "Harshit", role: "Founder & Lead Audio Engineer", initials: "HR", note: "Sets the house sound and owns the final mix." },
+  { name: "Operations Team", role: "Studio Operations & Onboarding", initials: "OP", note: "Keeps every production moving — scheduling, vendor onboarding, and smooth day-to-day coordination." },
   { name: "Production Team", role: "Editors & Dialogue Specialists", initials: "ED", note: "Assembly, cleanup, and continuity across episodes." },
   { name: "Sound Design", role: "Designers & Foley Artists", initials: "SD", note: "Worlds built from ambience, effects, and texture." },
   { name: "Music", role: "Composers & Producers", initials: "MU", note: "Original scores, themes, and beds." },

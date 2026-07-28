@@ -4,29 +4,50 @@ import Link from "next/link";
 import Section from "@/components/ui/section";
 import { motion } from "@/lib/motion";
 import { useMemo, useState } from "react";
-import { TbArrowUpRight } from "react-icons/tb";
-import SampleCard, { Sample } from "@/components/ui/sample-card";
+import { TbArrowUpRight, TbClockPause, TbMusic } from "react-icons/tb";
+import AudioSample, { AudioItem } from "@/components/ui/audio-sample";
 
-const CATEGORIES = ["Audio Story", "Audiobook", "Podcast", "Music Production"] as const;
-type Category = (typeof CATEGORIES)[number];
+const demo = (file: string) => `/demos/${encodeURIComponent(file)}`;
 
-const ALL: (Sample & { category: Category })[] = [
-  { category: "Audio Story", title: "Episodic Drama", meta: "Long-form narrative · multi-voice" },
-  { category: "Audio Story", title: "Mystery Anthology", meta: "Season · immersive sound design" },
-  { category: "Audio Story", title: "Children's Series", meta: "Character voices · music score" },
-  { category: "Audiobook", title: "Literary Fiction", meta: "Full-length · chapter delivery" },
-  { category: "Audiobook", title: "Non-Fiction Title", meta: "Narration · clean edit" },
-  { category: "Audiobook", title: "Regional Language", meta: "Localized · retail-spec master" },
-  { category: "Podcast", title: "Interview Series", meta: "Weekly · edited & mastered" },
-  { category: "Podcast", title: "Branded Show", meta: "Scripted · beds & sound design" },
-  { category: "Podcast", title: "Narrative Documentary", meta: "Limited series · post-production" },
-  { category: "Music Production", title: "Original Score", meta: "Themes · stems · mix" },
-  { category: "Music Production", title: "Title Track", meta: "Composition · master" },
-  { category: "Music Production", title: "Ad Music", meta: "30s · license-ready" },
+const AUDIO_STORY: AudioItem[] = [
+  {
+    category: "Audio Story",
+    title: "Don't Look Behind You",
+    genre: "Suspense / Psychological Thriller",
+    src: demo("DONT LOOK BEHIND YOU - Suspense _ Psychological Thriller.wav"),
+  },
+  {
+    category: "Audio Story",
+    title: "System Awakening",
+    genre: "Sci-Fi LitRPG / System Apocalypse",
+    src: demo("SYSTEM AWAKENING - Sci-Fi LitRPG _ System Apocalypse.wav"),
+  },
+  {
+    category: "Audio Story",
+    title: "The Last King of Dragons",
+    genre: "Fantasy Epic",
+    src: demo("THE LAST KING OF DRAGONS - Fantasy Epic.wav"),
+  },
+  {
+    category: "Audio Story",
+    title: "The Missed Call",
+    genre: "Drama",
+    src: demo("THE MISSED CALL - Drama.wav"),
+  },
+  {
+    category: "Audio Story",
+    title: "When the Stars Chose Her",
+    genre: "Romantasy",
+    src: demo("WHEN THE STARS CHOSE HER - Romantasy.wav"),
+  },
 ];
 
-const FILTERS = ["All", ...CATEGORIES] as const;
-type Filter = (typeof FILTERS)[number];
+type TabId = "Audio Story" | "Music" | "Podcast";
+const TABS: { id: TabId; label: string; disabled?: boolean }[] = [
+  { id: "Audio Story", label: "Audio Story" },
+  { id: "Music", label: "Music" },
+  { id: "Podcast", label: "Podcast", disabled: true },
+];
 
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } };
 const item = {
@@ -35,11 +56,9 @@ const item = {
 };
 
 export default function Work() {
-  const [active, setActive] = useState<Filter>("All");
-  const projects = useMemo(
-    () => (active === "All" ? ALL : ALL.filter((p) => p.category === active)),
-    [active]
-  );
+  const [active, setActive] = useState<TabId>("Audio Story");
+
+  const samples = useMemo(() => (active === "Audio Story" ? AUDIO_STORY : []), [active]);
 
   return (
     <main>
@@ -59,23 +78,45 @@ export default function Work() {
               Selected <span className="text-rust-500">work.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-lg md:text-xl text-muted leading-relaxed">
-              A look across the kinds of productions we deliver — audio stories, audiobooks,
-              podcasts, and original music. Listenable samples are on the way; reach out for a
-              tailored reel for your category.
+              Real audio-story productions — press play to listen. From suspense and sci-fi to
+              fantasy, drama, and romantasy, each sample is produced end-to-end in-house.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* FILTER + GRID */}
+      {/* TABS + CONTENT */}
       <Section title="Browse by category" kicker="Samples">
         <div className="mb-10 flex flex-wrap gap-2">
-          {FILTERS.map((f) => {
-            const on = active === f;
+          {TABS.map((t) => {
+            const on = active === t.id;
+            if (t.disabled) {
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setActive(t.id)}
+                  aria-disabled="true"
+                  title="Work to be updated soon"
+                  className={
+                    "inline-flex items-center gap-2 rounded-full border border-dashed px-5 py-2.5 text-sm transition-all " +
+                    (on
+                      ? "border-ink/40 text-ink"
+                      : "border-ink/20 text-muted/70 hover:text-muted")
+                  }
+                >
+                  {t.label}
+                  <span className="rounded-full bg-ink/5 px-2 py-0.5 text-[0.6rem] uppercase tracking-[0.14em] text-muted">
+                    Soon
+                  </span>
+                </button>
+              );
+            }
             return (
               <button
-                key={f}
-                onClick={() => setActive(f)}
+                key={t.id}
+                type="button"
+                onClick={() => setActive(t.id)}
                 aria-pressed={on}
                 className={
                   "rounded-full border px-5 py-2.5 text-sm transition-all " +
@@ -84,25 +125,74 @@ export default function Work() {
                     : "border-ink/15 text-muted hover:border-ink/40 hover:text-ink")
                 }
               >
-                {f}
+                {t.label}
               </button>
             );
           })}
         </div>
 
-        <motion.div
-          key={active}
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-        >
-          {projects.map((p) => (
-            <motion.div key={p.title + p.category} variants={item}>
-              <SampleCard sample={p} />
+        {/* Audio Story — real samples */}
+        {active === "Audio Story" && (
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10 max-w-3xl text-lg md:text-xl text-muted leading-relaxed"
+            >
+              <span className="text-ink">Originals</span>, produced in-house —{" "}
+              <span className="text-ink">high-quality</span>{" "}
+              <span className="text-ink">binaural</span> and{" "}
+              <span className="text-ink">spatial audio</span>, built for headphones.
+            </motion.p>
+            <motion.div
+              key="audio-story"
+              variants={container}
+              initial="hidden"
+              animate="show"
+              className="grid gap-6 md:grid-cols-2"
+            >
+              {samples.map((s) => (
+                <motion.div key={s.title} variants={item}>
+                  <AudioSample item={s} />
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+        )}
+
+        {/* Music — active, coming soon */}
+        {active === "Music" && (
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-ink/15 bg-paper2/30 px-6 py-20 text-center">
+            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink/5 text-rust-500">
+              <TbMusic className="h-6 w-6" />
+            </div>
+            <h3 className="mt-6 font-display text-2xl text-ink">Music samples on the way</h3>
+            <p className="mt-2 max-w-md text-muted">
+              We're curating a selection of original scores and productions. In the meantime,
+              reach out for a tailored music reel.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-ink/20 px-6 py-3 text-sm text-ink transition hover:bg-ink hover:text-paper"
+            >
+              Request a music reel <TbArrowUpRight />
+            </Link>
+          </div>
+        )}
+
+        {/* Podcast — disabled */}
+        {active === "Podcast" && (
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-ink/15 bg-paper2/30 px-6 py-20 text-center">
+            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink/5 text-muted">
+              <TbClockPause className="h-6 w-6" />
+            </div>
+            <h3 className="mt-6 font-display text-2xl text-ink">Podcast — work to be updated soon</h3>
+            <p className="mt-2 max-w-md text-muted">
+              This section is being prepared. Check back shortly to hear our podcast productions.
+            </p>
+          </div>
+        )}
       </Section>
 
       {/* CTA */}
