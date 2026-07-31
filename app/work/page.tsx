@@ -140,10 +140,8 @@ export default function Work() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="mb-10 max-w-3xl text-lg md:text-xl text-muted leading-relaxed"
             >
-              <span className="text-ink">Originals</span>, produced in-house —{" "}
-              <span className="text-ink">high-quality</span>{" "}
-              <span className="text-ink">binaural</span> and{" "}
-              <span className="text-ink">spatial audio</span>, built for headphones.
+              Representative demos showcasing our end-to-end in-house audio production capabilities,
+              featuring immersive <span className="text-ink">binaural</span> and <span className="text-ink"> spatial </span>audio crafted for a cinematic headphone experience.
             </motion.p>
             <motion.div
               key="audio-story"
