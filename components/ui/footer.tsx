@@ -5,6 +5,7 @@ import Logo from "@/components/ui/logo";
 
 const explore = [
   { href: "/services", label: "Services" },
+  { href: "/ai-audio-qa", label: "AI Audio QA" },
   { href: "/audio-story-production", label: "Audio Story Production" },
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
@@ -22,8 +23,8 @@ export default function Footer() {
               <span className="font-display text-2xl tracking-tight">Studio HR Soundroom</span>
             </div>
             <p className="mt-6 max-w-sm text-paper/60 leading-relaxed">
-              A full-service audio production company. End-to-end storytelling — from
-              script to mastered, quality-controlled final delivery.
+              A remote audio production partner — high-volume, white-label and overflow production,
+              delivered globally. Built for businesses and production houses.
             </p>
             <a
               href={COMPANY_PROFILE_PDF}
@@ -65,14 +66,14 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Full-bleed wordmark — SVG stretches to exactly fill the container width */}
+        {/* Full-bleed wordmark */}
         <div className="mt-16 border-t border-paper/10 pt-6">
           <h1 className="text-9xl font-black text-paper/5 text-center py-10">SOUNDROOM</h1>
         </div>
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-paper/40">
           <span>© {new Date().getFullYear()} Studio HR Soundroom. All rights reserved.</span>
-          <span>End-to-end audio production · Built for scale.</span>
+          <span>Remote audio production · Built for high-volume, recurring work.</span>
         </div>
       </div>
     </footer>

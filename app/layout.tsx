@@ -4,36 +4,29 @@ import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  axes: ["opsz", "SOFT", "WONK"],
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-display", display: "swap", axes: ["opsz", "SOFT", "WONK"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.studiohr.com"),
-  title: "Studio HR Soundroom — End-to-End Audio Production",
+  metadataBase: new URL("https://www.studiohr.in"),
+  title: "Studio HR Soundroom — Remote Audio Production Partner",
   description:
-    "Studio HR Soundroom is a full-service audio production company delivering audio stories, audiobooks, podcasts, sound design, mixing, mastering, and quality-controlled final delivery at scale.",
+    "Studio HR is a remote audio production company that helps businesses and production houses handle high-volume audio production — white-label, overflow, and dedicated capacity. Audio story, audiobook, AI audio/voice QA, localization, podcast, mixing, mastering and QC.",
   keywords: [
-    "audio production company",
+    "remote audio production",
+    "white-label audio production",
+    "audio production outsourcing",
+    "AI audio QA",
+    "AI voice quality control",
     "audiobook production",
-    "podcast production",
     "audio story production",
-    "sound design",
-    "mixing and mastering",
+    "localization and dubbing post-production",
+    "podcast production",
   ],
   openGraph: {
-    title: "Studio HR Soundroom — End-to-End Audio Production",
+    title: "Studio HR Soundroom — Remote Audio Production Partner",
     description:
-      "Full-service audio production for storytelling platforms, audiobook publishers, podcast networks, media companies, and creators.",
+      "High-volume, white-label and overflow audio production for businesses and production houses — delivered globally.",
     type: "website",
   },
 };
