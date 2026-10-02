@@ -6,6 +6,7 @@ import { motion } from "@/lib/motion";
 import { useState } from "react";
 import { TbArrowUpRight, TbMicrophone, TbRobot, TbLanguage } from "react-icons/tb";
 import AudioSample, { AudioItem } from "@/components/ui/audio-sample";
+import YouTubeCard, { MusicItem } from "@/components/ui/youtube-card";
 
 const demo = (file: string) => `/demos/${encodeURIComponent(file)}`;
 
@@ -17,8 +18,23 @@ const AUDIO_STORY: AudioItem[] = [
   { category: "Studio HR Demo / Spec", title: "When the Stars Chose Her", genre: "Romantasy", src: demo("WHEN THE STARS CHOSE HER - Romantasy.wav") },
 ];
 
-type TabId = "Audio Story Production" | "Audiobook Production" | "AI Voice / Audio QA" | "Localization / Dubbing Post";
-const TABS: TabId[] = ["Audio Story Production", "Audiobook Production", "AI Voice / Audio QA", "Localization / Dubbing Post"];
+const MUSIC: MusicItem[] = [
+  { id: "mGrGXjZ4j_w", title: "Samandar Sharaab", artist: "Madhur Sharma" },
+  { id: "OivyBvoBt5E", title: "Javaan Toofaan", artist: "Meet Bros · IVY Music" },
+  { id: "0TwG-yreQmc", title: "Dil Ne Maana", artist: "Meet Bros · IVY Music" },
+  { id: "GGvpSKwaC60", title: "Maaye Ni Meriye", artist: "Anil Thakur, Aakanksha Sharma · FreeSpirit Music" },
+  { id: "EbVMdymhxAI", title: "Humdum Tera", artist: "Rachit Shrivastava" },
+  { id: "CaDI_aLJb44", title: "Darmiyaan", artist: "Rachit Shrivastava" },
+];
+
+const BRANDS = [
+  "ABP Network", "Radio Mirchi", "Bank of Baroda", "State Bank of India",
+  "LIC", "Cipla", "Dabur", "Gaana",
+  "JioSaavn", "Pocket FM", "Audible", "Hungama",
+];
+
+type TabId = "Audio Story Production" | "Audiobook Production" | "Music & Composition" | "AI Voice / Audio QA" | "Localization / Dubbing Post";
+const TABS: TabId[] = ["Audio Story Production", "Audiobook Production", "Music & Composition", "AI Voice / Audio QA", "Localization / Dubbing Post"];
 
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } };
 const item = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
@@ -44,7 +60,7 @@ function CategoryPanel({
         Studio HR Demo / Spec Production
       </div>
       <div className="mt-8">
-        <Link href={ctaHref} className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm text-paper transition hover:bg-rust-500">
+        <Link href={ctaHref} className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm text-paper transition hover:bg-rust-500 active:scale-95">
           {ctaLabel} <TbArrowUpRight />
         </Link>
       </div>
@@ -69,8 +85,8 @@ export default function Work() {
               Selected <span className="text-rust-500">work.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-lg md:text-xl text-muted leading-relaxed">
-              A cross-section of what we produce for clients — shown here as Studio HR demo and spec
-              productions. Ask for a tailored reel in your category.
+              A cross-section of what we produce for clients — demo and spec productions alongside
+              released music we've worked on. Ask for a tailored reel in your category.
             </p>
           </motion.div>
         </div>
@@ -88,7 +104,7 @@ export default function Work() {
                 onClick={() => setActive(t)}
                 aria-pressed={on}
                 className={
-                  "rounded-full border px-5 py-2.5 text-sm transition-all " +
+                  "rounded-full border px-5 py-2.5 text-sm transition-all active:scale-95 " +
                   (on ? "border-ink bg-ink text-paper" : "border-ink/15 text-muted hover:border-ink/40 hover:text-ink")
                 }
               >
@@ -129,6 +145,33 @@ export default function Work() {
           />
         )}
 
+        {active === "Music & Composition" && (
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10 max-w-3xl text-lg md:text-xl text-muted leading-relaxed"
+            >
+              A selection of released music we've <span className="text-ink">composed, produced, and worked on</span> —
+              across a range of artists and labels.
+            </motion.p>
+            <motion.div key="music" variants={container} initial="hidden" animate="show" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {MUSIC.map((m) => (
+                <motion.div key={m.id} variants={item}>
+                  <YouTubeCard item={m} />
+                </motion.div>
+              ))}
+            </motion.div>
+            <p className="mt-8 max-w-3xl text-sm text-muted leading-relaxed">
+              All songs, recordings, videos, and artwork shown here remain the property of their
+              respective artists, labels, and rights holders. They are featured solely to showcase
+              Studio HR's production work — no copyright infringement is intended, and all rights
+              belong to their original owners.
+            </p>
+          </div>
+        )}
+
         {active === "AI Voice / Audio QA" && (
           <CategoryPanel
             Icon={TbRobot}
@@ -148,13 +191,33 @@ export default function Work() {
         )}
       </Section>
 
+      {/* BRANDS */}
+      <Section title="Brands we've worked with" kicker="Clients & brands">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-3 lg:grid-cols-4">
+          {BRANDS.map((b) => (
+            <div
+              key={b}
+              className="group flex items-center justify-center bg-paper px-6 py-10 text-center transition-colors duration-300 hover:bg-paper2/60"
+            >
+              <span className="font-display text-xl md:text-2xl text-ink/55 transition-colors duration-300 group-hover:text-ink">
+                {b}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 max-w-3xl text-sm text-muted leading-relaxed">
+          Brand names, logos, and trademarks are the property of their respective owners, shown here
+          to represent past and ongoing collaborations — no affiliation or endorsement is implied.
+        </p>
+      </Section>
+
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="flex flex-col items-start gap-6 rounded-3xl bg-ink p-10 text-paper md:flex-row md:items-center md:justify-between md:p-16">
           <h3 className="display text-3xl md:text-5xl">
             Want a reel for your <span className="text-rust-400">category?</span>
           </h3>
-          <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-rust-500 px-8 py-4 text-paper transition hover:bg-paper hover:text-ink">
+          <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-rust-500 px-8 py-4 text-paper transition hover:bg-paper hover:text-ink active:scale-95">
             Request samples <TbArrowUpRight />
           </Link>
         </div>
